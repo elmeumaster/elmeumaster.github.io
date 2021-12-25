@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>Quin és el meu màster?</title>
+</head>
+<body>
+    <div class="container p-5">
+        <div class="row justify-content-center mb-5">
+            <div class="col-auto">
+                <h1>🎓 Quin és el meu màster?</h1>
+            </div>
+        </div>
+        <div class="row justify-content-center mb-5">
+            <div class="col">
+                <div class="accordion" id="accordionExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                Troba el teu màster
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <strong>Tothom ha de tenir un màster.</strong>
+                                Si no en tens encara, te'n trobarem un ara mateix. Hi ha milers de màsters, i un d'ells t'està esperant.
+                                Esteu predestinats. Doctrina Social de l'Església?  Direcció i Enginyeria a Llocs Web?
+                                Creació i Gestió d'Empreses en un Entorn Global? No importa el contingut, tenir un màster queda bé
+                                al currículum!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Què és això?
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                <strong>Pots matricular 3708 màsters a l'Estat Espanyol.</strong>
+                                Aquesta pàgina és una llista de tots els que es poden matricular (el curs 2021-22).
+                                No té més objectiu que mostrar-los per curiositat, per fer broma dels noms
+                                i en general reflexionar sobre si molts d'ells són útils o no. Les dades estan
+                                extretes del <a href="https://www.educacion.gob.es/ruct">Registre d'Universitats, Centres i Títols (RUCT)</a>.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center align-items-center mb-3 gy-3">
+            <div class="col-auto">
+                <label for="inputName" class="col-form-label"></label>
+            </div>
+            <div class="col-auto">
+                <input type="text" id="inputName" class="form-control" placeholder="El teu nom">
+            </div>
+            <div class="col-auto">
+                <button type="submit" class="btn btn-primary btn-lg" id="submit" disabled>Troba el meu màster!</button>
+            </div>
+            <div class="col-auto" id="randomCol" style="display:none">
+                <button type="submit" class="btn btn-outline-primary btn-lg" id="submitRandom">No t'agrada? Troba'n un a l'atzar!</button>
+            </div>
+        </div>
+        <div class="row justify-content-center align-items-center mb-3" id="masterCard" style="display:none">
+            <div class="col-auto">
+                <div class="card">
+                    <div class="card-header">
+                    ❤️ És un match
+                    </div>
+                    <div class="card-body">
+                    <h5 class="card-title" id="masterCardTitle"></h5>
+                    <a href="#" class="btn btn-primary" id="masterCardButton">Explica-ho a Twitter</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    <script src="data.js"></script>
+    <script>
+        function displayMaster(seed) {
+            index = seed % masters.length;
+            master = masters[index];
+            
+            $('#masterCardTitle').html('<span class="badge bg-secondary">#' + index.toString() + '</span> ' + master);
+            let twitterURL = 'http://twitter.com/share?text=' +
+                encodeURI('Aquest és el màster que hauria d\'haver estudiat: ' + master + '. Troba el teu a:') +
+                '&url=https://elmeumaster.github.io&hashtags=elmeumaster';
+            $('#masterCardButton').attr('href', twitterURL);
+
+            $('#masterCard').fadeIn();
+            $('#randomCol').fadeIn();
+        }
+
+        $('#inputName').on('input', function() {
+            let name = $('#inputName').val().trim();
+            $('#submit').prop('disabled', name.length == 0);
+        });
+
+        $('#submit').on('click', function() {
+            let name = $('#inputName').val().trim().toLowerCase();
+            let = key = Number('0x' + MD5(name).slice(-8));
+            displayMaster(key);
+        });
+        $('#submitRandom').on('click', function() {
+            let key = Math.floor(Math.random() * 100000);
+            displayMaster(key);
+        });
+    </script>
+</body>
+</html>
